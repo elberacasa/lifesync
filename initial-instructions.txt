@@ -1,0 +1,94 @@
+# LifeSync All-in-One Life Management App Frontend Development Prompt
+
+Create a comprehensive, feature-rich frontend for LifeSync, an all-in-one web application designed to manage every aspect of daily life. Use React for development and Shadcn UI components to ensure a polished, consistent user interface. The app should have a powerful, customizable dashboard reminiscent of financial exchanges, allowing users to view and interact with various life management modules at a glance.
+
+1. Setup and Architecture:
+   - Use Next.js for its routing capabilities and server-side rendering benefits
+   - Integrate Shadcn UI for pre-built components and consistent styling
+   - Implement responsive design for seamless usage across devices
+   - Use a state management solution like Redux or Zustand for complex state handling
+
+2. Dashboard:
+   - Create a modular, customizable dashboard as the app's central hub
+   - Allow users to add, remove, and rearrange widgets for different life management modules
+   - Implement a grid layout system for flexible widget placement
+   - Include a sidebar for quick navigation between full-page modules
+
+3. Core Modules (each as both dashboard widgets and full pages):
+   a. Task Management (To-Do List):
+      - Create, edit, delete, and categorize tasks
+      - Set due dates, priorities, and recurrence
+      - Implement drag-and-drop for task reordering
+   
+   b. Note Taking:
+      - Rich text editor for creating and editing notes
+      - Organize notes with tags and folders
+      - Search functionality for quick note retrieval
+
+   c. Grocery List:
+      - Add, edit, and delete items
+      - Categorize items by store sections
+      - Include a "frequently bought" items list for quick adding
+
+   d. Split Bill Calculator:
+      - Input bill details and split among multiple people
+      - Support uneven splits and tip calculations
+      - Save split history for future reference
+
+   e. Monthly Budget Planner:
+      - Set up income sources and budget categories
+      - Visual representations of budget allocation (e.g., pie charts)
+      - Track progress throughout the month
+
+   f. Expense Tracker:
+      - Log daily expenses with categories and tags
+      - Generate reports and visualizations of spending habits
+      - Integration with Monthly Budget Planner for real-time budget updates
+
+   g. Calendar and Event Management:
+      - Month, week, and day views for scheduling
+      - Create and manage events with reminders
+      - Integrate with task management for deadline visualization
+
+   h. Habit Tracker:
+      - Set up daily, weekly, or monthly habits to track
+      - Visual streaks and progress indicators
+      - Insights and statistics on habit adherence
+
+   i. Health and Fitness:
+      - Log workouts and track physical activities
+      - Monitor nutrition and water intake
+      - Integrate with popular fitness devices or apps if possible
+
+   j. Goal Setting and Tracking:
+      - Create short-term and long-term goals
+      - Break down goals into actionable steps
+      - Track progress and celebrate milestones
+
+4. UI/UX Focus:
+   - Design an intuitive, clean interface that doesn't overwhelm users despite the app's complexity
+   - Use Shadcn UI components consistently across all modules for a cohesive look
+   - Implement smooth transitions and animations for a polished user experience
+   - Ensure proper information hierarchy and visual cues for easy navigation
+
+5. Additional Features:
+   - Global search functionality across all modules
+   - Dark mode toggle with smooth transition
+   - Data visualization components (charts, graphs) for insightful representations
+   - Customizable themes or color schemes
+   - Keyboard shortcuts for power users
+
+6. Performance and Optimization:
+   - Implement code-splitting and lazy loading for faster initial load times
+   - Optimize re-renders using React.memo, useMemo, and useCallback
+   - Use virtualization for long lists to improve performance
+
+7. Data Persistence and Sync:
+   - Implement local storage for offline functionality
+   - Prepare for future backend integration with appropriate data structures and API calls
+
+8. Accessibility:
+   - Ensure WCAG 2.1 AA compliance
+   - Implement proper ARIA labels and keyboard navigation
+
+Develop the LifeSync frontend focusing on creating a powerful, intuitive, and visually appealing interface that effectively manages and presents various aspects of a user's daily life. Prioritize user experience, ensuring that despite the app's comprehensive nature, it remains easy to use and navigate.
