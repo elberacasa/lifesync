@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -27,6 +27,11 @@ import FlagIcon from '@mui/icons-material/Flag';
 import NoteIcon from '@mui/icons-material/Note';
 import GroupIcon from '@mui/icons-material/Group';
 import { motion } from 'framer-motion';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
 
 import TaskManagement from './components/TaskManagement';
 import Calendar from './components/Calendar';
@@ -54,92 +59,75 @@ const darkTheme = createTheme({
       default: '#121212',
       paper: '#1e1e1e',
     },
-    text: {
-      primary: '#ffffff',
-      secondary: '#b0bec5',
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    h4: {
-      fontWeight: 600,
-    },
-    h6: {
-      fontWeight: 500,
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-        },
-      },
-    },
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#1e1e1e',
-        },
-      },
-    },
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: '#1e1e1e',
-        },
-      },
-    },
   },
 });
 
+const menuItems = [
+  { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
+  { text: 'Tasks', icon: <AssignmentIcon />, path: '/tasks' },
+  { text: 'Calendar', icon: <CalendarTodayIcon />, path: '/calendar' },
+  { text: 'Grocery List', icon: <ShoppingCartIcon />, path: '/grocery' },
+  { text: 'Budget', icon: <AttachMoneyIcon />, path: '/budget' },
+  { text: 'Expenses', icon: <BarChartIcon />, path: '/expenses' },
+  { text: 'Health', icon: <FitnessCenterIcon />, path: '/health' },
+  { text: 'Goals', icon: <FlagIcon />, path: '/goals' },
+  { text: 'Notes', icon: <NoteIcon />, path: '/notes' },
+  { text: 'Split Bill', icon: <GroupIcon />, path: '/split-bill' },
+  { text: 'SyncSage', icon: <DashboardIcon />, path: '/sync-sage' },
+];
+
+
+function Dashboard() {
+  const navigate = useNavigate();
+
+  const summaries = [
+    { title: 'Tasks', description: 'Manage your to-do list', path: '/tasks', icon: <AssignmentIcon /> },
+    { title: 'Calendar', description: 'View and plan your schedule', path: '/calendar', icon: <CalendarTodayIcon /> },
+    { title: 'Grocery List', description: 'Keep track of shopping items', path: '/grocery', icon: <ShoppingCartIcon /> },
+    { title: 'Budget', description: 'Plan and track your finances', path: '/budget', icon: <AttachMoneyIcon /> },
+    { title: 'Expenses', description: 'Monitor your spending', path: '/expenses', icon: <BarChartIcon /> },
+    { title: 'Health', description: 'Track your fitness and wellbeing', path: '/health', icon: <FitnessCenterIcon /> },
+    { title: 'Goals', description: 'Set and achieve your objectives', path: '/goals', icon: <FlagIcon /> },
+    { title: 'Notes', description: 'Jot down your thoughts', path: '/notes', icon: <NoteIcon /> },
+    { title: 'Split Bill', description: 'Divide expenses with friends', path: '/split-bill', icon: <GroupIcon /> },
+    { title: 'SyncSage', description: 'Your AI assistant', path: '/sync-sage', icon: <DashboardIcon /> },
+  ];
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Welcome to LifeSync
+      </Typography>
+      <Grid container spacing={3}>
+        {summaries.map((item) => (
+          <Grid item xs={12} sm={6} md={4} key={item.title}>
+            <Card>
+              <CardContent>
+                <Typography variant="h5" component="div" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  {React.cloneElement(item.icon, { sx: { mr: 1 } })}
+                  {item.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {item.description}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" onClick={() => navigate(item.path)}>Go to {item.title}</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+}
+
 function App() {
   const [open, setOpen] = useState(false);
-  const [userData, setUserData] = useState({
-    health: { averageSteps: 5000 },
-    budget: { savingsRate: 15 },
-    // Add more user data as needed
-  });
-  const [healthData, setHealthData] = useState({
-    steps: [],
-    heartRate: [],
-    sleepHours: [],
-    calories: [],
-  });
 
-  useEffect(() => {
-    const savedHealthData = localStorage.getItem('healthData');
-    if (savedHealthData) {
-      setHealthData(JSON.parse(savedHealthData));
-    }
-  }, []);
-
-  const updateHealthData = (newData) => {
-    setHealthData(newData);
-    localStorage.setItem('healthData', JSON.stringify(newData));
+  const toggleDrawer = () => {
+    setOpen(!open);
   };
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const menuItems = [
-    { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
-    { text: 'Tasks', icon: <AssignmentIcon />, path: '/tasks' },
-    { text: 'Calendar', icon: <CalendarTodayIcon />, path: '/calendar' },
-    { text: 'Grocery List', icon: <ShoppingCartIcon />, path: '/grocery' },
-    { text: 'Budget', icon: <AttachMoneyIcon />, path: '/budget' },
-    { text: 'Expenses', icon: <BarChartIcon />, path: '/expenses' },
-    { text: 'Health', icon: <FitnessCenterIcon />, path: '/health' },
-    { text: 'Goals', icon: <FlagIcon />, path: '/goals' },
-    { text: 'Notes', icon: <NoteIcon />, path: '/notes' },
-    { text: 'Split Bill', icon: <GroupIcon />, path: '/split-bill' },
-    { text: 'SyncSage', icon: <GroupIcon />, path: '/sync-sage' },
-  ];
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -150,12 +138,12 @@ function App() {
             <Toolbar>
               <IconButton
                 color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
+                aria-label="toggle drawer"
+                onClick={toggleDrawer}
                 edge="start"
-                sx={{ marginRight: 5, ...(open && { display: 'none' }) }}
+                sx={{ marginRight: 5 }}
               >
-                <MenuIcon />
+                {open ? <ChevronLeftIcon /> : <MenuIcon />}
               </IconButton>
               <Typography variant="h6" noWrap component="div">
                 LifeSync
@@ -163,16 +151,17 @@ function App() {
             </Toolbar>
           </AppBar>
           <Drawer
+            variant="permanent"
             sx={{
               width: drawerWidth,
               flexShrink: 0,
-              '& .MuiDrawer-paper': {
-                width: drawerWidth,
+              [`& .MuiDrawer-paper`]: { 
+                width: drawerWidth, 
                 boxSizing: 'border-box',
+                left: open ? 0 : -drawerWidth,
+                transition: 'left 0.3s ease-in-out'
               },
             }}
-            variant="persistent"
-            anchor="left"
             open={open}
           >
             <Toolbar />
@@ -180,7 +169,7 @@ function App() {
               <List>
                 {menuItems.map((item) => (
                   <ListItem key={item.text} disablePadding>
-                    <ListItemButton component={Link} to={item.path}>
+                    <ListItemButton component={Link} to={item.path} onClick={toggleDrawer}>
                       <ListItemIcon>
                         {item.icon}
                       </ListItemIcon>
@@ -206,36 +195,17 @@ function App() {
                 <Route path="/grocery" element={<GroceryList />} />
                 <Route path="/budget" element={<Budget />} />
                 <Route path="/expenses" element={<Expenses />} />
-                <Route path="/health" element={<Health healthData={healthData} updateHealthData={updateHealthData} />} />
+                <Route path="/health" element={<Health />} />
                 <Route path="/goals" element={<Goals />} />
                 <Route path="/notes" element={<Notes />} />
                 <Route path="/split-bill" element={<SplitBill />} />
-                <Route path="/sync-sage" element={<SyncSage userData={{ health: healthData }} />} />
+                <Route path="/sync-sage" element={<SyncSage />} />
               </Routes>
             </motion.div>
           </Box>
         </Box>
       </Router>
     </ThemeProvider>
-  );
-}
-
-
-function Dashboard() {
-  return (
-    <Box sx={{ maxWidth: 'lg', mx: 'auto', mt: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Welcome to LifeSync
-      </Typography>
-      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 3, mt: 4 }}>
-        {['Tasks', 'Calendar', 'Budget', 'Grocery List', 'Health', 'Goals'].map((item) => (
-          <Box key={item} sx={{ bgcolor: 'background.paper', p: 3, borderRadius: 2, boxShadow: 1 }}>
-            <Typography variant="h6" gutterBottom>{item}</Typography>
-            <Typography variant="body2">Quick summary of your {item.toLowerCase()} goes here.</Typography>
-          </Box>
-        ))}
-      </Box>
-    </Box>
   );
 }
 
